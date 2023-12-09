@@ -7,16 +7,13 @@ const server = Bun.serve({
       return new Response('About me!!!');
     } else if (url.pathname === '/feed') {
       throw new Error('Could not fetch feed')
+    } if (url.pathname === '/greet') {
+      return new Response(Bun.file('./greet.txt'))
     }
     return new Response('404 error');
   },
   error(error) {
-    // return new Response(`${error} \n${error.stack}`);
-    return new Response(`${error}\n${error.stack}`, {
-      headers: {
-        'Content-Type': 'text/plain'
-      }
-    })
+    return new Response(`${error} \n${error.stack}`);
   },
 
   port: process.env.PORT || 3000,
